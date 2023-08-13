@@ -10,7 +10,7 @@ def get_loss():
     """
 
     # YOUR CODE HERE: select a loss appropriate for classification
-    loss  = # YOUR CODE HERE
+    loss  =nn.CrossEntropyLoss() # YOUR CODE HERE
 
     return loss
 
@@ -37,6 +37,10 @@ def get_optimizer(
         # and weight_decay
         opt = torch.optim.SGD(
             # YOUR CODE HERE
+             learning_rate, 
+             momentum,
+             weight_decay
+
         )
 
     elif optimizer.lower() == "adam":
@@ -45,6 +49,9 @@ def get_optimizer(
         # and weight_decay
         opt = torch.optim.Adam(
             # YOUR CODE HERE
+            learning_rate, 
+             momentum,
+             weight_decay
         )
     else:
         raise ValueError(f"Optimizer {optimizer} not supported")
