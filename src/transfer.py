@@ -22,14 +22,16 @@ def get_model_transfer_learning(model_name="resnet18", n_classes=50):
     # HINT: loop over all parameters. If "param" is one parameter,
     # "param.requires_grad = False" freezes it
     # YOUR CODE HERE
+    for param in model_transfer.parameters():
+        param.requires_grad = False
 
     # Add the linear layer at the end with the appropriate number of classes
     # 1. get numbers of features extracted by the backbone
-    num_ftrs  = # YOUR CODE HERE
+    num_ftrs = model_transfer.fc.in_features # YOUR CODE HERE
 
     # 2. Create a new linear layer with the appropriate number of inputs and
     #    outputs
-    model_transfer.fc  = # YOUR CODE HERE
+    model_transfer.fc = nn.Linear(num_ftrs, n_classes) # YOUR CODE HERE
 
     return model_transfer
 
