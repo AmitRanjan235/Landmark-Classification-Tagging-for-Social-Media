@@ -19,7 +19,7 @@ def get_optimizer(
     model: nn.Module,
     optimizer: str = "SGD",
     learning_rate: float = 0.01,
-    momentum: float = 0.5,
+    momentum: float = 0.9,
     weight_decay: float = 0,
 ):
     """
@@ -37,9 +37,10 @@ def get_optimizer(
         # and weight_decay
         opt = torch.optim.SGD(
             # YOUR CODE HERE
-             learning_rate, 
-             momentum,
-             weight_decay
+             model.parameters(),
+             lr=learning_rate, 
+             momentum=momentum,
+             weight_decay=weight_decay
 
         )
 
@@ -49,9 +50,10 @@ def get_optimizer(
         # and weight_decay
         opt = torch.optim.Adam(
             # YOUR CODE HERE
-            learning_rate, 
-             momentum,
-             weight_decay
+             model.parameters(),
+             lr=learning_rate, 
+            
+             weight_decay=weight_decay
         )
     else:
         raise ValueError(f"Optimizer {optimizer} not supported")

@@ -43,7 +43,7 @@ def train_one_epoch(train_dataloader, model, optimizer, loss):
         loss_value  = loss(output,target)# YOUR CODE HERE
         # 4. backward pass: compute gradient of the loss with respect to model parameters
         # YOUR CODE HERE:
-        loss_value.backword()
+        loss_value.backward()
         # 5. perform a single optimization step (parameter update)
         # YOUR CODE HERE:
         optimizer.step()
