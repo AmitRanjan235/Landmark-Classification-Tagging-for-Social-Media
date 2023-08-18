@@ -5,6 +5,7 @@ from pathlib import Path
 from torchvision import datasets, transforms
 import multiprocessing
 
+
 from .helpers import compute_mean_and_std, get_data_location
 import matplotlib.pyplot as plt
 
@@ -45,10 +46,16 @@ def get_data_loaders(
     transforms.Resize(256),                # Resize the image to 256x256
     transforms.RandomResizedCrop(224),     # Randomly crop the image to 224x224
     transforms.RandomHorizontalFlip(),     # Randomly flip the image horizontally
+    transforms.RandAugment(
+                num_ops=2,
+                magnitude=10,
+                interpolation=transforms.InterpolationMode.BILINEAR),
+                
+               
     transforms.ToTensor(),                 # Convert the image to a PyTorch tensor
-    transforms.Normalize(mean,  # Normalize with ImageNet statistics
+    transforms.Normalize(mean,  
                          std),
-]),
+    ]),
             # YOUR CODE HERE
         
         "valid": transforms.Compose([
@@ -204,7 +211,7 @@ def test_data_loaders_keys(data_loaders):
 def test_data_loaders_output_type(data_loaders):
     # Test the data loaders
     dataiter = iter(data_loaders["train"])
-    images, labels = dataiter.next()
+    images, labels = next(dataiter)
 
     assert isinstance(images, torch.Tensor), "images should be a Tensor"
     assert isinstance(labels, torch.Tensor), "labels should be a Tensor"
@@ -214,7 +221,7 @@ def test_data_loaders_output_type(data_loaders):
 
 def test_data_loaders_output_shape(data_loaders):
     dataiter = iter(data_loaders["train"])
-    images, labels = dataiter.next()
+    images, labels =next(dataiter)
 
     assert len(images) == 2, f"Expected a batch of size 2, got size {len(images)}"
     assert (
